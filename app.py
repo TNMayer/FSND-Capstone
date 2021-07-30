@@ -42,6 +42,25 @@ def create_app(test_config=None):
       'success': True,
       'actors': all_actors
     })
+  
+  @app.route('/movies', methods=['GET'])
+  def get_movies():
+    selection = Movie.query.order_by(Movie.id).all()
+    
+    if len(selection) == 0:
+      return jsonify({
+        'error': 404,
+        'message': 'There are no movies in the database to display'
+      })
+    
+    all_actors = []
+    for actor in selection:
+      all_actors.append(actor.format())
+    
+    return jsonify({
+      'success': True,
+      'actors': all_actors
+    })
 
   return app
 

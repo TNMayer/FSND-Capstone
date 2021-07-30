@@ -4,8 +4,17 @@ from flask_sqlalchemy import SQLAlchemy
 import json
 from datetime import datetime
 
-database_path = "./database/casting_agency.sqlite"
-database_path = "sqlite:///{}".format(database_path)
+# PSQL Statements
+# login as superuser in psql: e.g. psql -U postgres
+# create database fsnd_capstone;
+# create user fsnd with encrypted password 'fsnd';
+# grant all privileges on database fsnd_capstone to fsnd;
+
+# database_path = "./database/casting_agency.sqlite"
+# database_path = "sqlite:///{}".format(database_path)
+
+database_name = "fsnd_capstone"
+database_path = "postgresql://{}:{}@{}/{}".format('fsnd', 'fsnd', 'localhost:5432', database_name)
 
 db = SQLAlchemy()
 
