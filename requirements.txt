@@ -1,23 +1,26 @@
 alembic==1.6.5
 certifi==2021.5.30
-click @ file:///tmp/build/80754af9/click_1621604852318/work
+click==8.0.1
 colorama==0.4.4
 Flask==2.0.1
-Flask-Cors @ file:///tmp/build/80754af9/flask_cors_1614875208036/work
-Flask-Migrate==3.0.1
+Flask-Cors==3.0.10
+Flask-Migrate==2.7.0
 Flask-Script==2.0.6
 Flask-SQLAlchemy==2.5.1
 greenlet==1.1.0
-importlib-metadata @ file:///C:/ci/importlib-metadata_1617877477759/work
-itsdangerous @ file:///tmp/build/80754af9/itsdangerous_1621432558163/work
-Jinja2 @ file:///tmp/build/80754af9/jinja2_1624781299557/work
+importlib-metadata==3.10.0
+itsdangerous==2.0.1
+Jinja2==3.0.1
 Mako==1.1.4
-MarkupSafe @ file:///C:/ci/markupsafe_1621528502553/work
+MarkupSafe==2.0.1
+pip==21.1.3
 psycopg2-binary==2.9.1
 python-dateutil==2.8.2
 python-editor==1.0.4
-six @ file:///tmp/build/80754af9/six_1623709665295/work
+setuptools==52.0.0.post20210125
+six==1.16.0
 SQLAlchemy==1.4.22
 Werkzeug==2.0.1
+wheel==0.36.2
 wincertstore==0.2
-zipp @ file:///tmp/build/80754af9/zipp_1625570634446/work
+zipp==3.5.0
