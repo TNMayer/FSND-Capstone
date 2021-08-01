@@ -1,3 +1,5 @@
+#-*- coding: UTF-8 -*-
+
 from flask import jsonify
 
 def error_404(app):

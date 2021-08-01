@@ -1,10 +1,12 @@
+#-*- coding: UTF-8 -*-
+
 import os
 from flask import Flask, request, abort, jsonify
 from flask_sqlalchemy import SQLAlchemy
 from flask_cors import CORS
 
 from errors import error_404, error_422, error_400, error_405, error_500, error_authError
-from database.models import db_drop_and_create_all, setup_db, db, Movie, Actor
+from database.models import db_drop_and_create_all, setup_db, db, Movie, Actor, Casting
 
 def create_app(test_config=None):
   # create and configure the app
@@ -19,7 +21,7 @@ def create_app(test_config=None):
       return response
   
   # To initialize the database and populate it with dummy data for the first time (!!!), please uncomment line below
-  db_drop_and_create_all()
+  # db_drop_and_create_all()
 
   @app.route('/')
   def api_greeting():
@@ -53,18 +55,37 @@ def create_app(test_config=None):
         'message': 'There are no movies in the database to display'
       })
     
-    all_actors = []
-    for actor in selection:
-      all_actors.append(actor.format())
+    all_movies = []
+    for movie in selection:
+      all_movies.append(movie.format())
     
     return jsonify({
       'success': True,
-      'actors': all_actors
+      'actors': all_movies
     })
 
+  @app.route('/castings', methods=['GET'])
+  def get_castings():
+    selection = Casting.query.order_by(Casting.movie_id, Casting.actor_id).all()
+
+    if len(selection) == 0:
+      return jsonify({
+        'error': 404,
+        'message': 'There are no castings in the database to display'
+      })
+    
+    all_castings = []
+    for casting in selection:
+      all_castings.append(casting.format())
+    
+    return jsonify({
+      'success': True,
+      'actors': all_castings
+    })
+    
   return app
 
-APP = create_app()
+app = create_app()
 
 if __name__ == '__main__':
-  APP.run(debug=True, use_debugger=False, host='127.0.0.1', port=8080, use_reloader=True)
+  app.run(debug=True, use_debugger=False, host='127.0.0.1', port=8080, use_reloader=True)
