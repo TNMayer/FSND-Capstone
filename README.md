@@ -57,6 +57,8 @@ sh setup.sh
 python app.py
 ```
 
+**Windows users can execute setup.bat instead of sh setup.sh**
+
 ## Testing
 To run the tests, run
 ```bash
