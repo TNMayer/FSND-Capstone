@@ -38,6 +38,15 @@ def error_405(app):
             "message": "method not allowed"
         }), 405
 
+def error_403(app):
+    @app.errorhandler(403)
+    def unauthorized_403(error):
+        return jsonify({
+            "success": False, 
+            "error": 403,
+            "message": "user is not authorized for requested action"
+        }), 403
+
 def error_500(app):
     @app.errorhandler(500)
     def server_error_500(error):

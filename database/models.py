@@ -15,9 +15,6 @@ from datetime import datetime
 # database_path = "./database/casting_agency.sqlite"
 # database_path = "sqlite:///{}".format(database_path)
 
-database_name = "fsnd_capstone"
-database_path = "postgresql://{}:{}@{}/{}".format('fsnd', 'fsnd', 'localhost:5432', database_name)
-
 db = SQLAlchemy()
 
 '''
@@ -25,12 +22,18 @@ setup_db(app)
     binds a flask application and a SQLAlchemy service
 '''
 
-def setup_db(app):
-    app.config["SQLALCHEMY_DATABASE_URI"] = database_path
+def setup_db(app, setting="default"):
+    if setting == "default":
+        app.config["SQLALCHEMY_DATABASE_URI"] = os.environ['DATABASE_URI']
+    else:
+        app.config["SQLALCHEMY_DATABASE_URI"] = os.environ['DATABASE_TEST_URI']
     app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = False
     db.app = app
     # migrate = Migrate(app, db)
     db.init_app(app)
+
+    # if setting != 'default':
+    #     db_drop_and_create_all()
 
 '''
     db_drop_and_create_all()
@@ -136,7 +139,7 @@ class Movie(db.Model):
 
     # Autoincrementing, unique primary key
     id = db.Column(db.Integer(), primary_key=True, autoincrement=True)
-    title = db.Column(db.String(255), unique=True)
+    title = db.Column(db.String(255))
     release_date = db.Column(db.String(20), nullable=False)
     insertion_datetime = db.Column(db.DateTime(), nullable=False)
     castings = db.relationship('Casting', backref="movies", lazy=True)
@@ -157,7 +160,7 @@ class Movie(db.Model):
         db.session.commit()
 
     def delete(self):
-        db.session.delete(self)
+        # db.session.delete(self)
         db.session.commit()
 
     def format(self):
