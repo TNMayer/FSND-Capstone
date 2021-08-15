@@ -132,10 +132,12 @@ def create_app(test_config=None):
     try:
       movie = Movie.query.filter(Movie.id == movie_id).one_or_none()
       castingSelection = Casting.query.filter(Casting.movie_id == movie_id).all()
-      print(movie.id)
 
       if movie is None:
         abort(404)
+
+      print(movie.id)
+      print(movie.title)
 
       movie.delete()
 

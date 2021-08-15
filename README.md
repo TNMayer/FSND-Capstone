@@ -70,8 +70,10 @@ python test_app.py
 
 ## API Documentation
 
+### GET Routes
+
 **GET '/actors'**
-- Fetches a list of all actors in the database.
+- Returns a list of all actors in the database.
 - All roles Assistant, Director and Producer are allowed to access the endpoint.
 - A valid Auth0 token has to be provided via a bearer token in the header of the request.
 - Request example is provided in ./test_app.py
@@ -104,139 +106,309 @@ python test_app.py
 
 </details>
 
-**GET '/questions?page=${integer}'**
-- Fetches a paginated set of questions, a total number of questions, all categories and current category string. 
-- Request Arguments: page - integer
-- Returns: An object with 10 paginated questions, total questions, object including all categories, and current category string
+**GET '/movies'**
+- Returns a list of all movies in the database.
+- All roles Assistant, Director and Producer are allowed to access the endpoint.
+- A valid Auth0 token has to be provided via a bearer token in the header of the request.
+- Request example is provided in ./test_app.py
+- Requires permission: get:movies
+
+<details>
+<summary>Example Response</summary>
 
 ```
 {
-    'questions': [
+    "movies": [
         {
-            'id': 1,
-            'question': 'This is a question',
-            'answer': 'This is an answer', 
-            'difficulty': 5,
-            'category': 2
+            "id": 1,
+            "insertion_datetime": "Fri, 06 Aug 2021 14:41:29 GMT",
+            "release_date": "2022-07-31",
+            "title": "The Shawshank Redemption"
         },
-    ],
-    'total_questions': 100,
-    'categories': { '1' : "Science",
-    '2' : "Art",
-    '3' : "Geography",
-    '4' : "History",
-    '5' : "Entertainment",
-    '6' : "Sports" },
-    'currentCategory': 'History'
-}
-```
-
-**GET '/categories/${id}/questions'**
-- Fetches questions for a cateogry specified by id request argument 
-- Request Arguments: id - integer
-- Returns: An object with questions for the specified category, total questions, and current category string
-
-```
-{
-    'questions': [
         {
-            'id': 1,
-            'question': 'This is a question',
-            'answer': 'This is an answer', 
-            'difficulty': 5,
-            'category': 4
-        },
+            "id": 2,
+            "insertion_datetime": "Fri, 06 Aug 2021 14:41:29 GMT",
+            "release_date": "2022-05-25",
+            "title": "Der Pate"
+        }
     ],
-    'total_questions': 100,
-    'currentCategory': 'History'
+    "success": true
 }
 ```
 
-**DELETE '/questions/${id}'**
-- Deletes a specified question using the id of the question
-- Request Arguments: id - integer
-- Returns: Returns the success status and the id of the deleted question
+</details>
+
+**GET '/castings'**
+- Returns a list of all castings in the database.
+- All roles Assistant, Director and Producer are allowed to access the endpoint.
+- A valid Auth0 token has to be provided via a bearer token in the header of the request.
+- Request example is provided in ./test_app.py
+- Requires permission: get:castings
+
+<details>
+<summary>Example Response</summary>
 
 ```
 {
-    'success': True,
-    'deleted': question_id
-}
-```
-
-**POST '/quizzes'**
-- Sends a post request in order to get the next question 
-- Request Body:
-```
-{
-    'previous_questions':  an array of question id's such as [1, 4, 20, 15]
-    'quiz_category': a string of the current category 
-}
-```
-- Returns: a single new question object
-```
-{
-    'question': {
-        'id': 1,
-        'question': 'This is a question',
-        'answer': 'This is an answer', 
-        'difficulty': 5,
-        'category': 4
-    }
-}
-```
-
-**POST '/questions'**
-- Sends a post request in order to search for a specific question by search term 
-- Request Body: 
-```
-{
-    'searchTerm': 'this is the term the user is looking for'
-}
-```
-- Returns: any array of questions, a number of totalQuestions that met the search term and the current category string
-```
-{
-    'questions': [
+    "castings": [
         {
-            'id': 1,
-            'question': 'This is a question',
-            'answer': 'This is an answer', 
-            'difficulty': 5,
-            'category': 5
+            "actor_id": 1,
+            "actor_name": "Johnny Depp",
+            "id": 1,
+            "insertion_datetime": "Fri, 06 Aug 2021 14:41:29 GMT",
+            "movie_id": 1,
+            "movie_title": "The Shawshank Redemption"
         },
+        {
+            "actor_id": 4,
+            "actor_name": "Bruce Willis",
+            "id": 2,
+            "insertion_datetime": "Fri, 06 Aug 2021 14:41:29 GMT",
+            "movie_id": 1,
+            "movie_title": "The Shawshank Redemption"
+        }
     ],
-    'total_questions': 100,
-    'current_category': None
+    "success": true
 }
 ```
 
-**POST '/questions'**
-- Sends a post request in order to add a new question
-- Request Body:
+</details>
+
+### POST Routes
+
+**POST '/actors'**
+- Returns a list of all actors in the database.
+- Only roles Director and Producer are allowed to access the endpoint.
+- A valid Auth0 token has to be provided via a bearer token in the header of the request.
+- Request example is provided in ./test_app.py
+- Requires permission: post:actors
+
+<details>
+<summary>Example Request Body</summary>
+
 ```
 {
-    'question':  'Heres a new question string',
-    'answer':  'Heres a new answer string',
-    'difficulty': 1,
-    'category': 3
+    "name": "Marco Sciaini",
+    "age": 31,
+    "gender": "male"
 }
 ```
-- Returns:
+
+<summary>Example Response</summary>
+
 ```
 {
-    'success': True,
-    'created': 98,
-    'question_created': 'Heres a new question string',
-    'questions': [
-        {
-            'id': 1,
-            'question': 'This is a question',
-            'answer': 'This is an answer', 
-            'difficulty': 5,
-            'category': 2
-        },
-    ],
-    'total_questions': 250
+    "actor": {
+        "age": 31,
+        "gender": "male",
+        "id": 13,
+        "insertion_datetime": "Sun, 15 Aug 2021 12:22:06 GMT",
+        "name": "Marco Sciaini"
+    },
+    "success": true
 }
 ```
+
+</details>
+
+**POST '/movies'**
+- Returns a list of all actors in the database.
+- Only role Producer is allowed to access the endpoint.
+- A valid Auth0 token has to be provided via a bearer token in the header of the request.
+- Request example is provided in ./test_app.py
+- Requires permission: post:movies
+
+<details>
+<summary>Example Request Body</summary>
+
+```
+{
+    "title": "Trio Infanale",
+    "release_date": "2021-07-31"
+}
+```
+
+<summary>Example Response</summary>
+
+```
+{
+    "movie": {
+        "id": 18,
+        "insertion_datetime": "Sun, 15 Aug 2021 12:27:57 GMT",
+        "release_date": "2021-07-31",
+        "title": "Trio Infanale"
+    },
+    "success": true
+}
+```
+
+</details>
+
+**POST '/castings'**
+- Returns a list of all actors in the database.
+- Only role Producer is allowed to access the endpoint.
+- A valid Auth0 token has to be provided via a bearer token in the header of the request.
+- Request example is provided in ./test_app.py
+- Requires permission: post:castings
+
+<details>
+<summary>Example Request Body</summary>
+
+```
+{
+    "movie_id": 4,
+    "actor_id": 3
+}
+```
+
+<summary>Example Response</summary>
+
+```
+{
+    "casting": {
+        "actor_id": 3,
+        "actor_name": "Stefan Reifenberg",
+        "id": 9,
+        "insertion_datetime": "Sun, 15 Aug 2021 12:31:38 GMT",
+        "movie_id": 4,
+        "movie_title": "Die Rasselbande aus Riedlingen"
+    },
+    "success": true
+}
+```
+
+</details>
+
+### DELETE Routes
+
+**DELETE '/actors/<int: id>'**
+- Deletes the actor with the provided ID
+- Only roles Director and Producer are allowed to access the endpoint.
+- A valid Auth0 token has to be provided via a bearer token in the header of the request.
+- Request example is provided in ./test_app.py
+- Requires permission: delete:actors
+
+<details>
+
+<summary>Example Response</summary>
+
+```
+{
+    "delete": 10,
+    "message": "Requested actor AND all related castings successfully removed!",
+    "success": true
+}
+```
+
+</details>
+
+**DELETE '/movies/<int: id>'**
+- Deletes the movie with the provided ID
+- Only role Producer is allowed to access the endpoint.
+- A valid Auth0 token has to be provided via a bearer token in the header of the request.
+- Request example is provided in ./test_app.py
+- Requires permission: delete:movies
+
+<details>
+
+<summary>Example Response</summary>
+
+```
+{
+    "delete": 8,
+    "message": "Requested movie AND all related castings successfully removed!",
+    "success": true
+}
+```
+
+</details>
+
+**DELETE '/castings/<int: id>'**
+- Deletes the cating with the provided ID
+- Only role Producer is allowed to access the endpoint.
+- A valid Auth0 token has to be provided via a bearer token in the header of the request.
+- Request example is provided in ./test_app.py
+- Requires permission: delete:castings
+
+<details>
+
+<summary>Example Response</summary>
+
+```
+{
+    "delete": 3,
+    "success": true
+}
+```
+
+</details>
+
+### PATCH Routes
+
+**PATCH '/actors/<int: id>'**
+- Updates the actor with the given id in the database.
+- Only roles Director and Producer are allowed to access the endpoint.
+- A valid Auth0 token has to be provided via a bearer token in the header of the request.
+- Request example is provided in ./test_app.py
+- Requires permission: patch:actors
+
+<details>
+<summary>Example Request Body</summary>
+
+```
+{
+    "name": "Morgan Freeman",
+    "age": 84,
+    "gender": "male"
+}
+```
+
+<summary>Example Response</summary>
+
+```
+{
+    "actors": {
+        "age": 84,
+        "gender": "male",
+        "id": 3,
+        "insertion_datetime": "Fri, 06 Aug 2021 14:41:29 GMT",
+        "name": "Morgan Freeman"
+    },
+    "success": true
+}
+```
+
+</details>
+
+**PATCH '/movies/<int: id>'**
+- Updates the movie with the given id in the database.
+- Only roles Director and Producer are allowed to access the endpoint.
+- A valid Auth0 token has to be provided via a bearer token in the header of the request.
+- Request example is provided in ./test_app.py
+- Requires permission: patch:movies
+
+<details>
+<summary>Example Request Body</summary>
+
+```
+{
+    "title": "Die Rasselbandenbude",
+    "release_date": "2024-01-05"
+}
+```
+
+<summary>Example Response</summary>
+
+```
+{
+    "movies": {
+        "id": 3,
+        "insertion_datetime": "Fri, 06 Aug 2021 14:41:29 GMT",
+        "release_date": "2024-01-05",
+        "title": "Die Rasselbandenbude"
+    },
+    "success": true
+}
+```
+
+</details>

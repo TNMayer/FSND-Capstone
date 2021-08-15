@@ -29,7 +29,7 @@
 							"bearer": [
 								{
 									"key": "token",
-									"value": "",
+									"value": "{{token_assistant}}",
 									"type": "string"
 								}
 							]
@@ -274,7 +274,7 @@
 						"method": "DELETE",
 						"header": [],
 						"url": {
-							"raw": "http://127.0.0.1:8080/actors/5",
+							"raw": "http://127.0.0.1:8080/actors/2",
 							"protocol": "http",
 							"host": [
 								"127",
@@ -285,7 +285,7 @@
 							"port": "8080",
 							"path": [
 								"actors",
-								"5"
+								"2"
 							]
 						}
 					},
@@ -772,7 +772,7 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "http://127.0.0.1:8080/movies",
+							"raw": "http://127.0.0.1:8080/castings",
 							"protocol": "http",
 							"host": [
 								"127",
@@ -782,7 +782,7 @@
 							],
 							"port": "8080",
 							"path": [
-								"movies"
+								"castings"
 							]
 						}
 					},
@@ -863,7 +863,7 @@
 						"method": "DELETE",
 						"header": [],
 						"url": {
-							"raw": "http://127.0.0.1:8080/movies/4",
+							"raw": "http://127.0.0.1:8080/movies/1",
 							"protocol": "http",
 							"host": [
 								"127",
@@ -874,7 +874,7 @@
 							"port": "8080",
 							"path": [
 								"movies",
-								"4"
+								"1"
 							]
 						}
 					},
@@ -909,7 +909,7 @@
 						"method": "DELETE",
 						"header": [],
 						"url": {
-							"raw": "http://127.0.0.1:8080/movies/4",
+							"raw": "http://127.0.0.1:8080/movies/2",
 							"protocol": "http",
 							"host": [
 								"127",
@@ -920,7 +920,7 @@
 							"port": "8080",
 							"path": [
 								"movies",
-								"4"
+								"2"
 							]
 						}
 					},
@@ -1047,7 +1047,7 @@
 									"\r",
 									"pm.test(\"response contains expected name\", function () {\r",
 									"    var jsonData = pm.response.json();\r",
-									"    pm.expect(jsonData.movie.title).to.eql('Karottenpommes am Abend');\r",
+									"    pm.expect(jsonData.movie.title).to.eql('Mozambique 99999');\r",
 									"});"
 								],
 								"type": "text/javascript"
@@ -1069,7 +1069,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"title\": \"Karottenpommes am Abend\",\r\n    \"release_date\": \"2021-07-30\"\r\n}",
+							"raw": "{\r\n    \"title\": \"Trio Infanale\",\r\n    \"release_date\": \"2021-07-31\"\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -1251,7 +1251,7 @@
 							}
 						},
 						"url": {
-							"raw": "http://127.0.0.1:8080/movies/4",
+							"raw": "http://127.0.0.1:8080/movies/3",
 							"protocol": "http",
 							"host": [
 								"127",
@@ -1262,7 +1262,7 @@
 							"port": "8080",
 							"path": [
 								"movies",
-								"4"
+								"3"
 							]
 						}
 					},
@@ -1272,7 +1272,163 @@
 		},
 		{
 			"name": "castings",
-			"item": []
+			"item": [
+				{
+					"name": "get:castings_producer",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"value contains name\", function () {\r",
+									"    var jsonData = pm.response.json();\r",
+									"    pm.expect(jsonData.movies[0].title).to.be.an('string')\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token_assistant}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://127.0.0.1:8080/castings",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "8080",
+							"path": [
+								"castings"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "post:castings_producer",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"response contains expected name\", function () {\r",
+									"    var jsonData = pm.response.json();\r",
+									"    pm.expect(jsonData.movie.title).to.eql('Mozambique 99999');\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token_producer}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"movie_id\": 4,\r\n    \"actor_id\": 3\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://127.0.0.1:8080/castings",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "8080",
+							"path": [
+								"castings"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "delete:castings_producer",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token_producer}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "http://127.0.0.1:8080/castings/3",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "8080",
+							"path": [
+								"castings",
+								"3"
+							]
+						}
+					},
+					"response": []
+				}
+			]
 		}
 	],
 	"event": [
@@ -1302,15 +1458,15 @@
 		},
 		{
 			"key": "token_assistant",
-			"value": "eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCIsImtpZCI6IkxXTDRxQ3hFbEVOcFFja2l2MmFQTCJ9.eyJpc3MiOiJodHRwczovL3RubWF5ZXIuZXUuYXV0aDAuY29tLyIsInN1YiI6ImF1dGgwfDYxMDZmMTYwMDI2MGI4MDA2OGIzYjhlNCIsImF1ZCI6ImZzbmRfY2Fwc3RvbmUiLCJpYXQiOjE2MjgwODM3MzAsImV4cCI6MTYyODE3MDEzMCwiYXpwIjoiZkM4cFlTOUxsbklRd1l3T0tkbGlUQjBPZnlVdjQzbG4iLCJzY29wZSI6IiIsInBlcm1pc3Npb25zIjpbImdldDphY3RvcnMiLCJnZXQ6Y2FzdGluZ3MiLCJnZXQ6bW92aWVzIl19.oKAHWa23DUxPdUMLKDmhB8mffjzzNGfLIyzuUuYuEj9KKBCsOJaXL8nJ2_WdA3qCQXDKnokum07YjfbpxUb6BEMtfM4-jsdnS9CWz5PZ4OMS-ChRAxb-u_C8gaExmk_4GcPAK9MigfokGfeTGN4lCEMiiyAdv8DX1KkkxEzCxdBhih4YcJgFb2PY1Gq4wJE6id76OHYC74KuVpq2WqcjWVqTt8zOIbp3K85ImaM1CQGsydzTNCbNEfnCoC5uGDkdJR1GUIpVxmCl5sIBwjeTCl5YN2lZnAK3MZUe3969HYIxHrSnQo3-vkJEaZTG2F1okcthvKpWSFWIGimC2HFgTA"
+			"value": "eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCIsImtpZCI6IkxXTDRxQ3hFbEVOcFFja2l2MmFQTCJ9.eyJpc3MiOiJodHRwczovL3RubWF5ZXIuZXUuYXV0aDAuY29tLyIsInN1YiI6ImF1dGgwfDYxMDZmMTYwMDI2MGI4MDA2OGIzYjhlNCIsImF1ZCI6ImZzbmRfY2Fwc3RvbmUiLCJpYXQiOjE2MjgyNjUzODUsImV4cCI6MTYyODM1MTc4NSwiYXpwIjoiZkM4cFlTOUxsbklRd1l3T0tkbGlUQjBPZnlVdjQzbG4iLCJzY29wZSI6IiIsInBlcm1pc3Npb25zIjpbImdldDphY3RvcnMiLCJnZXQ6Y2FzdGluZ3MiLCJnZXQ6bW92aWVzIl19.jYmMgRLrr3YJ7jIPEgnFZcoOdy7ZWtwM1uWc0DqKItgba0mvgBMJpDPdHhV3OhV6XxeXcwZPKpgRW72orhcKk4FsadWWtuLBdmO0sARY3CXBJFm4gZu4Q4cfKpR8qJClccF3xikxFAsWzUMDTyQzyWwGMzIsaJ90GA8RJgoCX3-bRDh1QP5WtMDVtsswYHihtUaxChidCgidfNjSXKLmh3hjIl2X4Knyc0DQJ-_rL0WQiqZBjLuxcjZmIzSp2I0tAGAefCh6bdSFWlguOWZAPnOQTKxzUrVPmYLTu4_EVjQiZmS24lCE4id00lDKsm2xkwxlovB5wOEfzmK45U4M7Q"
 		},
 		{
 			"key": "token_director",
-			"value": "eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCIsImtpZCI6IkxXTDRxQ3hFbEVOcFFja2l2MmFQTCJ9.eyJpc3MiOiJodHRwczovL3RubWF5ZXIuZXUuYXV0aDAuY29tLyIsInN1YiI6ImF1dGgwfDYxMDZmMTk1ZmE0NWMwMDA2OTIwMmNiMSIsImF1ZCI6ImZzbmRfY2Fwc3RvbmUiLCJpYXQiOjE2MjgwODM5NzcsImV4cCI6MTYyODE3MDM3NywiYXpwIjoiZkM4cFlTOUxsbklRd1l3T0tkbGlUQjBPZnlVdjQzbG4iLCJzY29wZSI6IiIsInBlcm1pc3Npb25zIjpbImRlbGV0ZTphY3RvcnMiLCJnZXQ6YWN0b3JzIiwiZ2V0OmNhc3RpbmdzIiwiZ2V0Om1vdmllcyIsInBhdGNoOmFjdG9ycyIsInBhdGNoOmNhc3RpbmdzIiwicGF0Y2g6bW92aWVzIiwicG9zdDphY3RvcnMiXX0.Jpck601wvf-lS9XmEkl0HLIimeBCAmxncDw7K6vulIySLiBLuNMhiYqk47mfn7q8tfdlhTwzf-NzuZnxZjvLCgn_3TGtaUmeg3OdQcDd3GixOawPPfI0qKsebEjvCeh6_1rSs_cU_zUgp6cRAHALRDSRk3xRfeEFIqA3gDL_zgRDIa6suW5KeJpUZloQIMKPvsqumZUTyb0urx-_GYUrupEMryfVzmgNJAx6U2Z6K01jBfD21qNwu7WEmIkwlafREnroCy5rEnVn92xDkHWCxWSqaMfF0MftemenOHT-RJoO4gX22Cbnw8aCWZdEbIUwnHXn6tz-X8pzOuIgQV8hCA"
+			"value": "eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCIsImtpZCI6IkxXTDRxQ3hFbEVOcFFja2l2MmFQTCJ9.eyJpc3MiOiJodHRwczovL3RubWF5ZXIuZXUuYXV0aDAuY29tLyIsInN1YiI6ImF1dGgwfDYxMDZmMTk1ZmE0NWMwMDA2OTIwMmNiMSIsImF1ZCI6ImZzbmRfY2Fwc3RvbmUiLCJpYXQiOjE2MjgyNjU1MTksImV4cCI6MTYyODM1MTkxOSwiYXpwIjoiZkM4cFlTOUxsbklRd1l3T0tkbGlUQjBPZnlVdjQzbG4iLCJzY29wZSI6IiIsInBlcm1pc3Npb25zIjpbImRlbGV0ZTphY3RvcnMiLCJnZXQ6YWN0b3JzIiwiZ2V0OmNhc3RpbmdzIiwiZ2V0Om1vdmllcyIsInBhdGNoOmFjdG9ycyIsInBhdGNoOmNhc3RpbmdzIiwicGF0Y2g6bW92aWVzIiwicG9zdDphY3RvcnMiXX0.BhrD-tj369vTiMMSx0dlQpgr6FvBPsnIxYS0G5JhGJS7vlvGC8TBIpbi4cmvUpRew1MSZ-eTWNLc8qUC8YvOnGTIXO-6iINIqvIN41-2aRB_s3-AhXxyo2RiER20TUVEMuWsl-pmtquvZRbjPUCQNYnwQD7j7JtN09c4OfBPQkZ45IhmE9rR2f8Ex5xfDFwax5kYOySJOxMXCZCL6AnaCVBoy8aTDx3s2PKm2DnwfqvvW5YY5IMr4-I8Um5x7A2pjDPzxLG5rpfYTCyQGz7C7ZsDPEsIDayc5zX3Fpe11jntZ5YeW4z-pNuw_Njk20tokL1KBfJIGqV0E2BxhKRuEA"
 		},
 		{
 			"key": "token_producer",
-			"value": "eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCIsImtpZCI6IkxXTDRxQ3hFbEVOcFFja2l2MmFQTCJ9.eyJpc3MiOiJodHRwczovL3RubWF5ZXIuZXUuYXV0aDAuY29tLyIsInN1YiI6ImF1dGgwfDYxMDZmMWYxNTMzMGI1MDA2YTg2NGM4MiIsImF1ZCI6ImZzbmRfY2Fwc3RvbmUiLCJpYXQiOjE2MjgwODQwNTQsImV4cCI6MTYyODE3MDQ1NCwiYXpwIjoiZkM4cFlTOUxsbklRd1l3T0tkbGlUQjBPZnlVdjQzbG4iLCJzY29wZSI6IiIsInBlcm1pc3Npb25zIjpbImRlbGV0ZTphY3RvcnMiLCJkZWxldGU6Y2FzdGluZ3MiLCJkZWxldGU6bW92aWVzIiwiZ2V0OmFjdG9ycyIsImdldDpjYXN0aW5ncyIsImdldDptb3ZpZXMiLCJwYXRjaDphY3RvcnMiLCJwYXRjaDpjYXN0aW5ncyIsInBhdGNoOm1vdmllcyIsInBvc3Q6YWN0b3JzIiwicG9zdDpjYXN0aW5ncyIsInBvc3Q6bW92aWVzIl19.QJQssGffKsUgDaT6HOnxxrcPyl9X2cH2TnvNQvAValT1C6858rNvtys0Ble7_1J32OAO6VDlpYOnTjKQiNGjr-BJMOwN9m2dwrhx5g_rC0lU4eKpQf61FWuIHRPZ0M3D7jFefWle93AIJIz4Fjsqpr9LYo-_jzsIAsaKKp05a8xiZvTEFKIms7ztwMgzQ29mHVtYyS6rjbF2bbmBw0RHkUgWpDukP6rdCBb95GINbTSW76YL8GdeuLgi3aWjsAdrB0PYKv9ayyCmF1daWCmDszqJPDOo7LeZhRdYd6Gm95AzNV9I7LatE0KglzdK99jBRIbbIIxG9I6VknqXLLnMJQ"
+			"value": "eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCIsImtpZCI6IkxXTDRxQ3hFbEVOcFFja2l2MmFQTCJ9.eyJpc3MiOiJodHRwczovL3RubWF5ZXIuZXUuYXV0aDAuY29tLyIsInN1YiI6ImF1dGgwfDYxMDZmMWYxNTMzMGI1MDA2YTg2NGM4MiIsImF1ZCI6ImZzbmRfY2Fwc3RvbmUiLCJpYXQiOjE2MjgxNzM2MTMsImV4cCI6MTYyODI2MDAxMywiYXpwIjoiZkM4cFlTOUxsbklRd1l3T0tkbGlUQjBPZnlVdjQzbG4iLCJzY29wZSI6IiIsInBlcm1pc3Npb25zIjpbImRlbGV0ZTphY3RvcnMiLCJkZWxldGU6Y2FzdGluZ3MiLCJkZWxldGU6bW92aWVzIiwiZ2V0OmFjdG9ycyIsImdldDpjYXN0aW5ncyIsImdldDptb3ZpZXMiLCJwYXRjaDphY3RvcnMiLCJwYXRjaDpjYXN0aW5ncyIsInBhdGNoOm1vdmllcyIsInBvc3Q6YWN0b3JzIiwicG9zdDpjYXN0aW5ncyIsInBvc3Q6bW92aWVzIl19.x8LbEl1svkIGBx-67-XdZJRhWCBmvuTWOrlcXqqdgvFCoDTS2VQyx-7mM_nC89Bj6XURr6uYN-dkIApQb14Dyyez_UWFz-Ijb6iwN3ycjuS_BhqCFdBqKSU5fR5XMzAfAhKBRYyNnRBm3VUGvpWSbQRmlGgfGDgwI9_7Flcx45diSmkAr6n0aVjxsx-jVW989NsfrinAFRgmZkw29Az9tbOvCEm1p6SMJpJs1Nr9I-agGGVrDjSWEMgMLz-metUtpKaZB0eRRs-WZG9nG-KhDkekkE1F4owibCykE_4n0kzwEfXMoQwCuLmjTDX2ifYjJ0ymMJnkZxZgcfK09nWquA"
 		}
 	]
 }
