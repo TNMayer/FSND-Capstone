@@ -139,10 +139,10 @@ def create_app(test_config=None):
       print(movie.id)
       print(movie.title)
 
-      movie.delete()
-
       for casting in castingSelection:
         casting.delete()
+      
+      movie.delete()
 
       return jsonify({
           'success': True,

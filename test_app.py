@@ -242,7 +242,7 @@ class FsndCapstoneTesting(unittest.TestCase):
         self.assertEqual(res.status_code, 200)
         self.assertEqual(data['movies']['title'], self.UPDATE_MOVIE_PASS['title'])
     
-    def test_delete_movies_producer(self):
+    def test_delete_actors_producer(self):
         """Pass"""
         res = self.client().delete('/movies/3', headers={
             'Authorization': "Bearer {}".format(self.TOKEN_PRODUCER)
