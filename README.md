@@ -193,7 +193,8 @@ python test_app.py
     "gender": "male"
 }
 ```
-
+</details>
+<details>
 <summary>Example Response</summary>
 
 ```
@@ -227,7 +228,8 @@ python test_app.py
     "release_date": "2021-07-31"
 }
 ```
-
+</details>
+<details>
 <summary>Example Response</summary>
 
 ```
@@ -260,7 +262,8 @@ python test_app.py
     "actor_id": 3
 }
 ```
-
+</details>
+<details>
 <summary>Example Response</summary>
 
 ```
@@ -363,6 +366,9 @@ python test_app.py
 }
 ```
 
+</details>
+
+<details>
 <summary>Example Response</summary>
 
 ```
@@ -396,7 +402,8 @@ python test_app.py
     "release_date": "2024-01-05"
 }
 ```
-
+</details>
+<details>
 <summary>Example Response</summary>
 
 ```
