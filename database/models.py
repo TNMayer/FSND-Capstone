@@ -24,9 +24,9 @@ setup_db(app)
 
 def setup_db(app, setting="default"):
     if setting == "default":
-        app.config["SQLALCHEMY_DATABASE_URI"] = os.environ['DATABASE_URI']
+        app.config["SQLALCHEMY_DATABASE_URI"] = os.environ['DATABASE_URL']
     else:
-        app.config["SQLALCHEMY_DATABASE_URI"] = os.environ['DATABASE_TEST_URI']
+        app.config["SQLALCHEMY_DATABASE_URI"] = os.environ['DATABASE_TEST_URL']
     app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = False
     db.app = app
     # migrate = Migrate(app, db)
