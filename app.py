@@ -24,7 +24,7 @@ def create_app(test_config=None):
   
   # To initialize the database and populate it with dummy data for the first time (!!!), please uncomment line below
   # if test_config is None:
-  db_drop_and_create_all()
+  # db_drop_and_create_all()
 
   @app.route('/')
   def api_greeting():
